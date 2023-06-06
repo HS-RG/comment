@@ -10,7 +10,7 @@ create table comment
     type        tinyint       not null comment '1:评论资源2:回复别人',
     reply_to    bigint        null comment '被回复用户的id',
     author_id   bigint        not null comment '评论者id',
-    context     varchar(1000) not null,
+    context     varchar(1000) ,
     update_time datetime      not null,
     create_time datetime      not null
 );
