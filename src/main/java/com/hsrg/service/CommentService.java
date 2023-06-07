@@ -12,4 +12,6 @@ public interface CommentService {
     List<Comment> listCommentPageByParent(Comment comment, Integer pageNumber, Integer pageSize);
 
     List<Comment> listCommentByParent(Comment comment);
+
+    void listAllCommentByParent(Comment comment, List<Comment> l);
 }

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class CommentController {
 
@@ -34,6 +37,13 @@ public class CommentController {
     @PostMapping("/comment/listCommentByParent")
     private Result listCommentByParent(@RequestBody Comment comment){
         return Result.success(commentService.listCommentByParent(comment));
+    }
+
+    @PostMapping("/comment/listAllCommentByParent")
+    private Result listAllCommentByParent(@RequestBody Comment comment){
+        List<Comment> l =new ArrayList<Comment>();
+        commentService.listAllCommentByParent(comment, l);
+        return Result.success(l);
     }
 
 }

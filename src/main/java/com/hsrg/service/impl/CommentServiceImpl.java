@@ -47,4 +47,19 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> list = commentMapper.listCommentByParent(comment);
         return list;
     }
+
+    @Override
+    public void listAllCommentByParent(Comment comment, List<Comment> l) {
+        List<Comment> list = commentMapper.listCommentByParent(comment);
+        if (list.size() != 0){
+            for(Comment c : list){
+                Comment target = new Comment();
+                target.setParentId(c.getCommentId());
+                target.setType(2);
+                l.add(c);
+                listAllCommentByParent(target, l);
+            }
+        }
+
+    }
 }
