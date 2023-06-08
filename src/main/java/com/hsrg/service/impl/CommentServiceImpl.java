@@ -25,6 +25,9 @@ public class CommentServiceImpl implements CommentService {
         comment.setCreateTime(LocalDateTime.now());
         comment.setUpdateTime(LocalDateTime.now());
         comment.setCommentId(snowflake.nextId());
+        if(comment.getType() == 2){
+            comment.setReplyTo(commentMapper.selectAuthorId(comment.getParentId()));
+        }
         commentMapper.createComment(comment);
         return comment.getCommentId();
     }

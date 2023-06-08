@@ -17,4 +17,7 @@ public interface CommentMapper {
 
     @Select("select * from comment where type = #{type} and parent_id = #{parentId}")
     List<Comment> listCommentByParent(Comment comment);
+
+    @Select("select author_id from comment where comment_id = #{commentId}")
+    Long selectAuthorId(Long commentId);
 }
