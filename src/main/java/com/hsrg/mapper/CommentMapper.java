@@ -12,7 +12,7 @@ public interface CommentMapper {
             "values (#{commentId}, #{parentId}, #{type}, #{replyTo}, #{authorId}, #{context}, #{updateTime}, #{createTime})")
     public void createComment(Comment comment);
 
-    @Update("update comment set context = null where comment_id = #{commentId}")
+    @Update("update comment set context = '评论已删除' where comment_id = #{commentId}")
     void deleteComment(Long commentId);
 
     @Select("select * from comment where type = #{type} and parent_id = #{parentId}")
