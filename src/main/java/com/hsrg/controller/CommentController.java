@@ -46,4 +46,9 @@ public class CommentController {
         return Result.success(l);
     }
 
+    @PostMapping("/comment/getAllCommentNum")
+    public Result getAllCommentNum(){
+        return Result.success(commentService.getAllCommentNum());
+    }
+
 }

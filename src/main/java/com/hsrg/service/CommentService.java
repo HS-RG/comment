@@ -14,4 +14,6 @@ public interface CommentService {
     List<Comment> listCommentByParent(Comment comment);
 
     void listAllCommentByParent(Comment comment, List<Comment> l);
+
+    Integer getAllCommentNum();
 }

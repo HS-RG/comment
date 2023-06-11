@@ -65,4 +65,9 @@ public class CommentServiceImpl implements CommentService {
         }
 
     }
+
+    @Override
+    public Integer getAllCommentNum() {
+        return commentMapper.selectCountComment();
+    }
 }

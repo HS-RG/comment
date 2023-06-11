@@ -20,4 +20,7 @@ public interface CommentMapper {
 
     @Select("select author_id from comment where comment_id = #{commentId}")
     Long selectAuthorId(Long commentId);
+
+    @Select("select count(*) from comment")
+    Integer selectCountComment();
 }
