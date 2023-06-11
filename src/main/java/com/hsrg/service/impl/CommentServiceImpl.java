@@ -1,9 +1,12 @@
 package com.hsrg.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.hsrg.clients.UserClient;
 import com.hsrg.mapper.CommentMapper;
 import com.hsrg.pojo.Comment;
+import com.hsrg.pojo.User;
 import com.hsrg.service.CommentService;
+import net.sf.json.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private Snowflake snowflake;
+    @Autowired
+    private UserClient userClient;
 
     @Override
     public Long createComment(Comment comment) {
@@ -56,6 +61,17 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> list = commentMapper.listCommentByParent(comment);
         if (list.size() != 0){
             for(Comment c : list){
+                if(c.getType()==2){
+                    User user = new User();
+                    user.setUserId(c.getReplyTo());
+                    JSONObject jsonObject = JSONObject.fromObject(userClient.selectByUserId(user).getData());
+                    c.setParentNickname(jsonObject.get("nickname").toString());
+                }
+                User user = new User();
+                user.setUserId(c.getAuthorId());
+                JSONObject jsonObject = JSONObject.fromObject(userClient.selectByUserId(user).getData());
+                c.setAuthorNickname(jsonObject.get("nickname").toString());
+                c.setAuthorImageUrl(jsonObject.get("imageUrl").toString());
                 Comment target = new Comment();
                 target.setParentId(c.getCommentId());
                 target.setType(2);
